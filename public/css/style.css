@@ -8,6 +8,10 @@ body,
     overflow: hidden;
 }
 
+body {
+    position: relative;
+}
+
 .cesium-viewer-bottom {
     display: none;
 }
@@ -26,8 +30,28 @@ body,
     position: absolute;
     bottom: 0px;
     right: 0;
-    display: inline;
+    /* display: inline; */
+    display: none;
     margin: 10px;
     padding: 10px;
     background: white;
+}
+
+#baseLayerPickerContainer {
+    position: absolute;
+    top: 45px;
+    right: 5px;
+    width: 38px;
+    height: 38px;
+}
+
+.twipsy-inner,
+.twipsy-arrow,
+.twipsy.right {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

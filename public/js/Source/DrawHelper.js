@@ -1,13 +1,3 @@
-/**
- * Created by thomas on 9/01/14.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
- *
- * (c) www.geocento.com
- * www.metaaps.com
- *
- */
-
 var DrawHelper = (function() {
 
     // static variables
@@ -1680,45 +1670,51 @@ var DrawHelper = (function() {
 
             var scene = drawHelper._scene;
 
-            addIcon('marker', options.markerIcon, 'Click to start drawing a 2D marker', function() {
-                drawHelper.startDrawingMarker({
-                    callback: function(position) {
-                        _self.executeListeners({ name: 'markerCreated', position: position });
-                    }
-                });
-            })
-
-            addIcon('polyline', options.polylineIcon, 'Click to start drawing a 2D polyline', function() {
-                drawHelper.startDrawingPolyline({
-                    callback: function(positions) {
-                        _self.executeListeners({ name: 'polylineCreated', positions: positions });
-                    }
-                });
-            })
-
-            addIcon('polygon', options.polygonIcon, 'Click to start drawing a 2D polygon', function() {
-                drawHelper.startDrawingPolygon({
-                    callback: function(positions) {
-                        _self.executeListeners({ name: 'polygonCreated', positions: positions });
-                    }
-                });
-            })
-
-            addIcon('extent', options.extentIcon, 'Click to start drawing an Extent', function() {
-                drawHelper.startDrawingExtent({
-                    callback: function(extent) {
-                        _self.executeListeners({ name: 'extentCreated', extent: extent });
-                    }
-                });
-            })
-
-            addIcon('circle', options.circleIcon, 'Click to start drawing a Circle', function() {
-                drawHelper.startDrawingCircle({
-                    callback: function(center, radius) {
-                        _self.executeListeners({ name: 'circleCreated', center: center, radius: radius });
-                    }
-                });
-            })
+            if (options.buttons.indexOf('marker') !== -1) {
+                addIcon('marker', options.markerIcon, 'Click to start drawing a 2D marker', function() {
+                    drawHelper.startDrawingMarker({
+                        callback: function(position) {
+                            _self.executeListeners({ name: 'markerCreated', position: position });
+                        }
+                    });
+                })
+            }
+            if (options.buttons.indexOf('polyline') !== -1) {
+                addIcon('polyline', options.polylineIcon, 'Click to start drawing a 2D polyline', function() {
+                    drawHelper.startDrawingPolyline({
+                        callback: function(positions) {
+                            _self.executeListeners({ name: 'polylineCreated', positions: positions });
+                        }
+                    });
+                })
+            }
+            if (options.buttons.indexOf('polygon') !== -1) {
+                addIcon('polygon', options.polygonIcon, 'Click to start drawing a 2D polygon', function() {
+                    drawHelper.startDrawingPolygon({
+                        callback: function(positions) {
+                            _self.executeListeners({ name: 'polygonCreated', positions: positions });
+                        }
+                    });
+                })
+            }
+            if (options.buttons.indexOf('extent') !== -1) {
+                addIcon('extent', options.extentIcon, 'Click to start drawing an Extent', function() {
+                    drawHelper.startDrawingExtent({
+                        callback: function(extent) {
+                            _self.executeListeners({ name: 'extentCreated', extent: extent });
+                        }
+                    });
+                })
+            }
+            if (options.buttons.indexOf('circle') !== -1) {
+                addIcon('circle', options.circleIcon, 'Click to start drawing a Circle', function() {
+                    drawHelper.startDrawingCircle({
+                        callback: function(center, radius) {
+                            _self.executeListeners({ name: 'circleCreated', center: center, radius: radius });
+                        }
+                    });
+                })
+            }
 
             // add a clear button at the end
             // add a divider first
@@ -1792,12 +1788,13 @@ var DrawHelper = (function() {
         }
 
         tooltip.prototype.showAt = function(position, message) {
-            if (position && message) {
-                this.setVisible(true);
-                this._title.innerHTML = message;
-                this._div.style.left = position.x + 10 + "px";
-                this._div.style.top = (position.y - this._div.clientHeight / 2) + "px";
-            }
+            // TODO 
+            // if (position && message) {
+            //     this.setVisible(true);
+            //     this._title.innerHTML = message;
+            //     this._div.style.left = position.x + 10 + "px";
+            //     this._div.style.top = (position.y - this._div.clientHeight / 2) + "px";
+            // }
         }
 
         return new tooltip(frameDiv);
