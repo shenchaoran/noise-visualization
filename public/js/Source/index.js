@@ -41,8 +41,6 @@ $(function() {
             navigationHelpButton: false,
             navigationInstructionsInitiallyVisible: false,
             mapProjection: new Cesium.WebMercatorProjection(),
-            skyBox: false,
-            skyAtmosphere: false,
             // imageryProvider: image_googleSource,
             // terrainProvider: terrainProvider //有时候访问不了高程数据，可暂时注释掉或者访问离线数据
         });
