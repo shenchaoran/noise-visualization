@@ -139,8 +139,14 @@ var DrawHelper = (function() {
         this._editedSurface = surface;
     }
 
-    var material = Cesium.Material.fromType(Cesium.Material.ColorType);
-    material.uniforms.color = new Cesium.Color(1.0, 1.0, 0.0, 0.5);
+    // var material = Cesium.Material.fromType(Cesium.Material.ColorType);
+    // material.uniforms.color = new Cesium.Color(1.0, 1.0, 0.0, 0.5);
+    var material = new Cesium.Material.fromType('Grid', new Cesium.GridMaterialProperty({
+        color: Cesium.Color.YELLOW,
+        cellAlpha: 0,
+        lineCount: new Cesium.Cartesian2(8, 8),
+        lineThickness: new Cesium.Cartesian2(2.0, 2.0)
+    }));
 
     var defaultShapeOptions = {
         ellipsoid: Cesium.Ellipsoid.WGS84,

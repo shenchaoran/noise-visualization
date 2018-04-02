@@ -101,8 +101,8 @@ $(function() {
 
         setTimeout(function() {
             viewer.camera.flyTo({
-                destination: Cesium.Cartesian3.fromDegrees(center[0], center[1], 200000),
-                duration: 5,
+                destination: Cesium.Cartesian3.fromDegrees(center[0], center[1], 8000000),
+                duration: 1.5,
                 orientation: {
                     heading: Cesium.Math.toRadians(0.0),
                     pitch: Cesium.Math.toRadians(-90.0),
