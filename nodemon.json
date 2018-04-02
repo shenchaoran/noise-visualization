@@ -1,0 +1,9 @@
+{
+    "verbose": true,
+    "watch": [
+        "controllers",
+        "models",
+        "routes",
+        "app.js"
+    ]
+}
