@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "NoiseRrgion",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": null }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 118.721409946199387, 32.000354825016053 ], [ 118.721490990452338, 32.00510807222377 ], [ 118.730346543933209, 32.005097074990047 ], [ 118.730265166920063, 32.000232863411519 ], [ 118.721409946199387, 32.000354825016053 ] ] ] } }
+]
+}

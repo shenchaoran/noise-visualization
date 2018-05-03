@@ -3,14 +3,28 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "start": "set PORT=7777 && nodemon --inspect=0.0.0.0:65534 ./bin/www"
+        "start": "nodemon ./bin/www",
+        "debug": "nodemon --inspect=0.0.0.0:12345 ./bin/www"
     },
     "dependencies": {
+        "bluebird": "^3.5.1",
         "cookie-parser": "~1.4.3",
         "debug": "~2.6.9",
         "ejs": "~2.5.7",
         "express": "~4.16.0",
+        "formidable": "^1.2.1",
+        "grunt": "^1.0.2",
         "http-errors": "~1.6.2",
-        "morgan": "~1.9.0"
+        "lodash": "^4.17.10",
+        "mongodb": "^3.0.7",
+        "mongoose": "^5.0.16",
+        "morgan": "~1.9.0",
+        "nodemon": "^1.17.3",
+        "unzip": "^0.1.11"
+    },
+    "devDependencies": {
+        "grunt-contrib-sass": "^1.0.0",
+        "grunt-contrib-watch": "^1.0.1",
+        "load-grunt-tasks": "^3.5.2"
     }
 }

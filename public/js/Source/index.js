@@ -6,8 +6,9 @@ var clock = null;
 var camera = null;
 
 var material = null;
+let Lay
 
-$(function() {
+$(function () {
     var timer = null;
     material = new Cesium.Material.fromType('Grid', new Cesium.GridMaterialProperty({
         color: Cesium.Color.YELLOW,
@@ -16,10 +17,31 @@ $(function() {
         lineThickness: new Cesium.Cartesian2(2.0, 2.0)
     }));
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         initialGlobeView();
         initDrawHelper();
+
+        let layerSwitcher = LayerSwitcher(viewer);
+        bindUpload(layerSwitcher);
+        layerSwitcher.addLayerSwitcher();
+
+        // allowFly();
     });
+
+    function bindUpload(layerSwitcher) {
+        $('input[type="file"]').on('change', (e) => {
+            layerSwitcher.uploadFile(e.currentTarget)
+                .catch(e => {
+                    console.log(e);
+                    $.gritter.add({
+                        title: 'Warning',
+                        text: typeof e === 'object' ? JSON.stringify(e) : e,
+                        sticky: false,
+                        time: 1000
+                    })
+                })
+        })
+    }
 
     function initialGlobeView() {
         var terrainProvider = new Cesium.CesiumTerrainProvider({
@@ -42,9 +64,9 @@ $(function() {
             navigationInstructionsInitiallyVisible: false,
             mapProjection: new Cesium.WebMercatorProjection(),
             // imageryProvider: image_googleSource,
-            // terrainProvider: terrainProvider //有时候访问不了高程数据，可暂时注释掉或者访问离线数据
+            // terrainProvider: terrainProvider //有时候�?�问不了高程数据，可暂时注释掉或者�?�问离线数据
         });
-        viewer.scene.globe.enableLighting = false; //太阳光
+        viewer.scene.globe.enableLighting = false; //�?阳光
         viewer._cesiumWidget._creditContainer.style.display = 'none';
 
         // image picker
@@ -83,21 +105,14 @@ $(function() {
         //     imageryProviderViewModels: imageryViewModels
         // });
 
-        // 图层管理
-        var layers = viewer.imageryLayers;
-        var label_googleSource = new Cesium.UrlTemplateImageryProvider({
-            url: 'http://mt0.google.cn/vt/imgtp=png32&lyrs=h@365000000&hl=zh-CN&gl=cn&x={x}&y={y}&z={z}&s=Galil',
-            credit: ''
-        });
-        layers.addImageryProvider(label_googleSource);
-
-
         scene = viewer.scene;
         canvas = viewer.canvas;
         clock = viewer.clock;
         camera = viewer.scene.camera;
+    }
 
-        setTimeout(function() {
+    function allowFly() {
+        setTimeout(function () {
             viewer.camera.flyTo({
                 destination: Cesium.Cartesian3.fromDegrees(center[0], center[1], 8000000),
                 duration: 1.5,
@@ -115,7 +130,7 @@ $(function() {
         var toolbar = drawHelper.addToolbar(document.getElementById("toolbar"), {
             buttons: ['polygon', 'circle', 'extent']
         });
-        toolbar.addListener('markerCreated', function(event) {
+        toolbar.addListener('markerCreated', function (event) {
             loggingMessage('Marker created at ' + event.position.toString());
             // create one common billboard collection for all billboards
             var b = new Cesium.BillboardCollection();
@@ -133,7 +148,7 @@ $(function() {
             });
             billboard.setEditable();
         });
-        toolbar.addListener('polylineCreated', function(event) {
+        toolbar.addListener('polylineCreated', function (event) {
             loggingMessage('Polyline created with ' + event.positions.length + ' points');
             var polyline = new DrawHelper.PolylinePrimitive({
                 positions: event.positions,
@@ -142,12 +157,12 @@ $(function() {
             });
             scene.primitives.add(polyline);
             polyline.setEditable();
-            polyline.addListener('onEdited', function(event) {
+            polyline.addListener('onEdited', function (event) {
                 loggingMessage('Polyline edited, ' + event.positions.length + ' points');
             });
 
         });
-        toolbar.addListener('polygonCreated', function(event) {
+        toolbar.addListener('polygonCreated', function (event) {
             loggingMessage('Polygon created with ' + event.positions.length + ' points');
             var polygon = new DrawHelper.PolygonPrimitive({
                 positions: event.positions,
@@ -155,12 +170,12 @@ $(function() {
             });
             scene.primitives.add(polygon);
             polygon.setEditable();
-            polygon.addListener('onEdited', function(event) {
+            polygon.addListener('onEdited', function (event) {
                 loggingMessage('Polygon edited, ' + event.positions.length + ' points');
             });
 
         });
-        toolbar.addListener('circleCreated', function(event) {
+        toolbar.addListener('circleCreated', function (event) {
             loggingMessage('Circle created: center is ' + event.center.toString() + ' and radius is ' + event.radius.toFixed(1) + ' meters');
             var circle = new DrawHelper.CirclePrimitive({
                 center: event.center,
@@ -169,11 +184,11 @@ $(function() {
             });
             scene.primitives.add(circle);
             circle.setEditable();
-            circle.addListener('onEdited', function(event) {
+            circle.addListener('onEdited', function (event) {
                 loggingMessage('Circle edited: radius is ' + event.radius.toFixed(1) + ' meters');
             });
         });
-        toolbar.addListener('extentCreated', function(event) {
+        toolbar.addListener('extentCreated', function (event) {
             var extent = event.extent;
             loggingMessage('Extent created (N: ' + extent.north.toFixed(3) + ', E: ' + extent.east.toFixed(3) + ', S: ' + extent.south.toFixed(3) + ', W: ' + extent.west.toFixed(3) + ')');
             var extentPrimitive = new DrawHelper.ExtentPrimitive({
@@ -182,7 +197,7 @@ $(function() {
             });
             scene.primitives.add(extentPrimitive);
             extentPrimitive.setEditable();
-            extentPrimitive.addListener('onEdited', function(event) {
+            extentPrimitive.addListener('onEdited', function (event) {
                 loggingMessage('Extent edited: extent is (N: ' + event.extent.north.toFixed(3) + ', E: ' + event.extent.east.toFixed(3) + ', S: ' + event.extent.south.toFixed(3) + ', W: ' + event.extent.west.toFixed(3) + ')');
             });
         });

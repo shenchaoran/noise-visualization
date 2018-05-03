@@ -1,9 +1,11 @@
 {
     "verbose": true,
-    "watch": [
-        "controllers",
-        "models",
-        "routes",
-        "app.js"
+    "ignore": [
+        ".vscode",
+        "geo_data",
+        "node_modules",
+        "public",
+        "resources",
+        "views"
     ]
 }
