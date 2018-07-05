@@ -63,7 +63,7 @@ module.exports = {
     },
 
     convert: (fields, files) => {
-        if(!fields.from || !fields.to || !files['myfile']) {
+        if (!fields.from || !fields.to || !files['myfile']) {
             return Promise.reject('invalid request body!');
         }
         let file = files['myfile'];
@@ -107,36 +107,35 @@ module.exports = {
                     let shp = _.filter(files, file => {
                         return /\.shp$/.test(file);
                     });
-                    if(shp.length) {
+                    if (shp.length) {
                         shp = shp[0];
                         src = path.join(unzipPath, shp);
                         dst = path.join(unzipPath, shp.replace(/\.shp$/, '.json'));
                         let cmdLine = `ogr2ogr -f "GeoJSON" -t_srs "EPSG:4326" "${dst}" "${src}"`;
-                        cp.exec(cmdLine, {
-                            encoding: 'utf8'
-                        }, (err, stdout, stderr) => {
-                            if(err) {
-                                return Promise.reject(err);
-                            }
-                            else {
-                                console.info(stdout);
-                                console.error(stderr);
-                            }
-                        });
-
-                        return FileUtil.scan(dst)
-                    }
-                    else {
+                        return new Promise((resolve, reject) => {
+                            cp.exec(cmdLine, {
+                                encoding: 'utf8'
+                            }, (err, stdout, stderr) => {
+                                if (err) {
+                                    return Promise.reject(err);
+                                } else {
+                                    console.info(stdout);
+                                    console.error(stderr);
+                                    return resolve();
+                                }
+                            });
+                        })
+                            .then(() => FileUtil.scan(dst));
+                    } else {
                         return Promise.reject('zip中不包括shapefile！');
                     }
-                }
-                else {
+                } else {
                     return Promise.reject('暂不支持其他格式的转换！');
                 }
             })
-            .then(exist => exist? fs.readFileAsync(dst, {
+            .then(exist => exist ? fs.readFileAsync(dst, {
                 encoding: 'utf8'
-            }): Promise.reject('转换失败！'))
+            }) : Promise.reject('转换失败！'))
             .then(Promise.resolve)
             .catch(e => {
                 console.log(e);

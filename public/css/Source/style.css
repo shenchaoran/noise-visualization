@@ -45,36 +45,76 @@ body {
           border-bottom: 1px solid #444;
           width: 100%; }
           #cesium-div #layer-switch > div #layers #top-tool .tool-item {
-            width: 30px;
-            height: 25px;
+            width: 30px !important;
+            height: 25px !important;
             font-size: 12px;
             border-radius: 2px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center; }
+        #cesium-div #layer-switch > div #layers .switcher,
         #cesium-div #layer-switch > div #layers #switcher {
+          position: relative;
           width: 100%;
           padding: 2 4px;
           border-radius: 4px;
-          margin: 5px;
+          margin: 0px;
           color: #fff; }
+          #cesium-div #layer-switch > div #layers .switcher input,
           #cesium-div #layer-switch > div #layers #switcher input {
             vertical-align: middle;
             padding-top: 2px;
             padding-bottom: 2px; }
+          #cesium-div #layer-switch > div #layers .switcher table,
           #cesium-div #layer-switch > div #layers #switcher table {
             width: 100%; }
+            #cesium-div #layer-switch > div #layers .switcher table tr,
             #cesium-div #layer-switch > div #layers #switcher table tr {
               transform: translateY(0);
               transition: transform 0.4s ease-out; }
+            #cesium-div #layer-switch > div #layers .switcher table tr.up,
             #cesium-div #layer-switch > div #layers #switcher table tr.up {
               transform: translateY(33px);
               transition: none; }
+            #cesium-div #layer-switch > div #layers .switcher table tr.down,
             #cesium-div #layer-switch > div #layers #switcher table tr.down {
               transform: translateY(-33px);
               transition: none; }
+            #cesium-div #layer-switch > div #layers .switcher table td button,
             #cesium-div #layer-switch > div #layers #switcher table td button {
               padding: 4px 5px; }
+          #cesium-div #layer-switch > div #layers .switcher .layer-name,
+          #cesium-div #layer-switch > div #layers #switcher .layer-name {
+            cursor: pointer; }
+          #cesium-div #layer-switch > div #layers .switcher #geojson-layers tr:hover,
+          #cesium-div #layer-switch > div #layers #switcher #geojson-layers tr:hover {
+            background: rgba(38, 38, 38, 0.3); }
+          #cesium-div #layer-switch > div #layers .switcher #context-menu,
+          #cesium-div #layer-switch > div #layers #switcher #context-menu {
+            position: absolute;
+            display: none;
+            z-index: 20; }
+            #cesium-div #layer-switch > div #layers .switcher #context-menu ul,
+            #cesium-div #layer-switch > div #layers #switcher #context-menu ul {
+              border-radius: 5px;
+              background: rgba(38, 38, 38, 0.75);
+              margin: 0;
+              padding: 0; }
+              #cesium-div #layer-switch > div #layers .switcher #context-menu ul li,
+              #cesium-div #layer-switch > div #layers #switcher #context-menu ul li {
+                border: 1px solid #444;
+                border-top: none;
+                list-style: none;
+                padding: 5px 10px;
+                text-align: left;
+                color: #fff;
+                cursor: pointer; }
+              #cesium-div #layer-switch > div #layers .switcher #context-menu ul li:hover,
+              #cesium-div #layer-switch > div #layers #switcher #context-menu ul li:hover {
+                background: rgba(38, 38, 38, 0.85); }
+              #cesium-div #layer-switch > div #layers .switcher #context-menu ul li:first-child,
+              #cesium-div #layer-switch > div #layers #switcher #context-menu ul li:first-child {
+                border-top: 1px solid #444; }
       #cesium-div #layer-switch > div #layers:before {
         content: '';
         display: inline-block;

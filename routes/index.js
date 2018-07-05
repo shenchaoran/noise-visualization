@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-let DataRouter = require('./data.route')
+// let DataRouter = require('./data.route')
 module.exports = router;
 
 router.route('/')
@@ -8,4 +8,4 @@ router.route('/')
         res.render('index');
     });
 
-router.use('/data', DataRouter);
+// router.use('/data', DataRouter);

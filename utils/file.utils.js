@@ -57,9 +57,9 @@ exports.scan = (fpath, STEP, TIMEOUT) => {
                     count++;
                     if(exist) {
                         // TODO 这里暂时用延迟返回，保证文件操作完毕
-                        setTimeout(() => {
+                        // setTimeout(() => {
                             return resolve(true);
-                        }, 2000);
+                        // }, 2000);
                     }
                     else {
                         if (TIMEOUT < count * STEP) {
